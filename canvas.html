@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas</title>
+</head>
+<body>
+	<canvas id="test-canvas" width="200" height="200">
+		<p>你的浏览器不支持Canvas</p>
+	</canvas>
+	<canvas id="triangle" width="200" height="200">
+		<p>你的浏览器不支持Canvas</p>
+	</canvas>
+
+	<canvas id="arc" width="200" height="200">
+		<p>你的浏览器不支持Canvas</p>
+	</canvas>
+	<script>
+	'use strict';
+		// 笑脸
+		function  smileFace (){
+			var 
+			    canvas = document.getElementById('test-canvas'),
+			    ctx = canvas.getContext('2d');
+
+			ctx.clearRect(0,0,200,200);
+			ctx.fillStyle = '#ddd';
+			ctx.fillRect(10,10,130,130);
+			// 利用Path绘制复杂路径：
+			var path = new Path2D();
+			path.arc(75,75,50,0, Math.PI*2, true);
+			path.moveTo(110,75);
+			path.arc(75, 75, 35, 0, Math.PI, false);
+			path.moveTo(65, 65);
+			path.arc(60, 65, 5, 0, Math.PI*2, true);
+			path.moveTo(95, 65);
+			path.arc(90, 65, 5, 0, Math.PI*2, true);
+			ctx.strokeStyle = '#0000ff';
+			ctx.stroke(path);
+		}
+
+		// 三角形
+		function draw(){
+			var canvas = document.getElementById('triangle');
+			if(canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+
+				// 填充三角形
+				ctx.beginPath();
+				ctx.moveTo(5, 5);
+				ctx.lineTo(100, 5);
+				ctx.lineTo(5, 100);
+				ctx.fill();
+
+				// 描边三角形
+				ctx.beginPath();
+				ctx.moveTo(125,125);
+				ctx.lineTo(125, 45);
+				ctx.lineTo(45,125);
+				ctx.closePath();
+				ctx.stroke();
+			}
+		}
+		// draw()
+		// 圆弧
+		/*
+		arc(x, y, radius, startAngle, endAngle, anticlockwise)
+		*/
+		function circle(){
+			 var canvas = document.getElementById('arc');
+			 if (canvas.getContext){
+			 var ctx = canvas.getContext('2d');
+
+			 for(var i=0;i<4;i++){
+			 for(var j=0;j<3;j++){
+			 ctx.beginPath();
+			 var x = 25+j*50; // x 坐标值
+			 var y = 25+i*50; // y 坐标值
+			 var radius = 20; // 圆弧半径
+			 var startAngle = 0; // 开始点
+			 var endAngle = Math.PI+(Math.PI*j)/2; // 结束点
+			 var anticlockwise = i%2==0 ? false : true; // 顺时针或逆时针
+
+			 ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+
+			 if (i>1){
+			 ctx.fill();
+			 } else {
+			 ctx.stroke();
+			 }
+			 }
+			 }
+			 }
+		}
+		circle()
+	</script>
+
+</body>
+</html>
