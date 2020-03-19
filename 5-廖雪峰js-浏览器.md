@@ -469,29 +469,173 @@ gl = canvas.getContext("webgl");
 
 Canvas的坐标以左上角为原点，水平向右为X轴，垂直向下为Y轴，以像素为单位，所以每个点都是非负整数。
 
-`CanvasRenderingContext2D`对象有若干方法来绘制图形：
+## 绘制矩形
+
+![img](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAFBklEQVR4Xu2b0WpbMRAFnS9v++UtF+JSTA3nRB5FXiZPKUi70pzxXhN6P27+SAAg8AHUtKQEboqlBAgBxUKwWlSxdAAhoFgIVosqlg4gBBQLwWpRxdIBhIBiIVgtqlg6gBBQLASrRRVLBxACioVgtahi6QBCQLEQrBZVLB1ACCgWgtWiiqUDCAHFQrBaVLF0ACGgWAhWiyqWDiAEFAvBalHF0gGEwC6xfiOnt+hXCeC54w0+b65YX1WA2YfnjjdQLMaMxap47ngDxVpUgNmO5443UCzGjMWqeO54A8VaVIDZjueON1AsxozFqnjueAPFWlSA2Y7njjdQLMaMxap47ngDxVpUgNmO5443UCzGjMWqeO54A8VaVIDZjueON1AsxozFqnjueAPFWlSA2Y7njjdQLMaMxap47ngDxVpUgNmO5443UCzGjMWqeO54A8VaVIDZjueON1AsxozFqnjueAPFWlSA2Y7njjeAxNp1bibWvuqr/2s3zg9voFi9Rf/ZoVhPML4dmJfo8Loib8fPifW68MlKivVNE+snmeo31H68j2Ip1ks0VKwQI/2Juwfx7pPr2T1ofmGM+bIp37EUK8/8WonnjjfY9OcGxVKsjsCT1Y8fCMXqsOIDBW/gxKoS9ztWhet2o798OrG6QPCBgjdwYlWJO7EqXE6sFJdipaScWBUpxapwObFSXIqVknJiVaQUq8LlxEpxKVZKyolVkVKsCpcTK8WlWCkpJ1ZFSrEqXE6sFJdipaScWBUpxapwObFSXIqVknJiVaQUq8LlxEpxKVZKyolVkVKsCpcTK8WlWCkpJ1ZFSrEqXE6sFJdipaScWBUpxapwObFSXD8+3/nzTeiQmC9TZKAuoS5Wvx6W0/yy0xWrfJmigLVhqY/CEjL9iZvy+pePQsUqCWTLfRRmnP6ucmJlwHwUZpwUq+Tko7AE5sTKgDmxMk5OrJKTYpXAnFgZMB+FGScnVsnJiVUCc2JlwBQr4+TEKjkpVgnMiZUB8ztWxsmJVXLyL+8lMCdWBsxHYcbJiVVy8lFYAnNiZcAUK+PkxCo5+SgsgTmxMmBOrIyTE6vkpFglMCdWBsxHYcbJiVVyuibW9ePLFCG4XRPr6nO9IHLv9/j7ddz7mvvR//138nt45aVlvv4V4tst1rNjPUqVrEv3hCiiZYoVYeJfWA2P8bbL6A/my8FMea/w5WAOK6hYTwJ5OzCKtUbAibXGb9fut/tgvqtYuwKd2gfPHW/wmcyrP3FTA991Lzx3vIFi7XKl6oPnjjdQrCrwXYvx3PEGirXLlaoPnjveQLGqwHctxnPHGyjWLleqPnjueAPFqgLftRjPHW+gWLtcqfrgueMNFKsKfNdiPHe8gWLtcqXqg+eON1CsKvBdi/Hc8QaKtcuVqg+eO95AsarAdy3Gc8cbKNYuV6o+eO54A8WqAt+1GM8db6BYu1yp+uC54w0Uqwp812I8d7yBYu1ypeqD5443UKwq8F2L8dzxBrtI2ecsAop1Vh5jTqNYY6I86yKKdVYeY06jWGOiPOsiinVWHmNOo1hjojzrIop1Vh5jTqNYY6I86yKKdVYeY06jWGOiPOsiinVWHmNOo1hjojzrIop1Vh5jTqNYY6I86yKKdVYeY06jWGOiPOsiinVWHmNOo1hjojzrIop1Vh5jTqNYY6I86yKKdVYeY06jWGOiPOsiinVWHmNOo1hjojzrIn8A6lcTpnBsMJUAAAAASUVORK5CYII=)
 
 ```js
-'use strict';
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
 
-var
-    canvas = document.getElementById('test-shape-canvas'),
-    ctx = canvas.getContext('2d');
+    ctx.fillRect(25, 25, 100, 100);
+    ctx.clearRect(45, 45, 60, 60);
+    ctx.strokeRect(50, 50, 50, 50);
+  }
+}
+```
 
-ctx.clearRect(0, 0, 200, 200); // 擦除(0,0)位置大小为200x200的矩形，擦除的意思是把该区域变为透明
-ctx.fillStyle = '#dddddd'; // 设置颜色
-ctx.fillRect(10, 10, 130, 130); // 把(10,10)位置大小为130x130的矩形涂色
-// 利用Path绘制复杂路径:
-var path=new Path2D();
-path.arc(75, 75, 50, 0, Math.PI*2, true);
-path.moveTo(110,75);
-path.arc(75, 75, 35, 0, Math.PI, false);
-path.moveTo(65, 65);
-path.arc(60, 65, 5, 0, Math.PI*2, true);
-path.moveTo(95, 65);
-path.arc(90, 65, 5, 0, Math.PI*2, true);
-ctx.strokeStyle = '#0000ff';
-ctx.stroke(path);
+## 绘制路径
 
 ```
+beginPath()
+```
+
+新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
+
+```
+closePath()
+```
+
+闭合路径之后图形绘制命令又重新指向到上下文中。
+
+```
+stroke()
+```
+
+通过线条来绘制图形轮廓。
+
+```
+fill()
+```
+
+通过填充路径的内容区域生成实心的图形。
+
+**注意：当前路径为空，即调用beginPath()之后，或者canvas刚建的时候，第一条路径构造命令通常被视为是moveTo（），无论实际上是什么。出于这个原因，你几乎总是要在设置路径之后专门指定你的起始位置。**
+
+## 绘制一个三角形
+
+![img](https://mdn.mozillademos.org/files/9847/triangle.png)
+
+```js
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(100, 75);
+    ctx.lineTo(100, 25);
+    ctx.fill();
+  }
+}
+```
+
+
+
+## 移动笔触
+
+![img](https://mdn.mozillademos.org/files/252/Canvas_smiley.png)
+
+
+
+```js
+function draw() {
+ var canvas = document.getElementById('canvas');
+ if (canvas.getContext){
+ var ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.arc(75,75,50,0,Math.PI*2,true); // 绘制
+    ctx.moveTo(110,75);
+    ctx.arc(75,75,35,0,Math.PI,false);   // 口(顺时针)
+    ctx.moveTo(65,65);
+    ctx.arc(60,65,5,0,Math.PI*2,true);  // 左眼
+    ctx.moveTo(95,65);
+    ctx.arc(90,65,5,0,Math.PI*2,true);  // 右眼
+    ctx.stroke();
+ }
+}
+```
+
+## 圆弧
+
+![img](https://mdn.mozillademos.org/files/204/Canvas_arc.png)
+
+
+
+```js
+function draw() {
+ var canvas = document.getElementById('canvas');
+ if (canvas.getContext){
+ var ctx = canvas.getContext('2d');
+
+ for(var i=0;i<4;i++){
+ for(var j=0;j<3;j++){
+ ctx.beginPath();
+ var x = 25+j*50; // x 坐标值
+ var y = 25+i*50; // y 坐标值
+ var radius = 20; // 圆弧半径
+ var startAngle = 0; // 开始点
+ var endAngle = Math.PI+(Math.PI*j)/2; // 结束点
+ var anticlockwise = i%2==0 ? false : true; // 顺时针或逆时针
+
+ ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+
+ if (i>1){
+ ctx.fill();
+ } else {
+ ctx.stroke();
+ }
+ }
+ }
+ }
+}
+```
+
+### 补充（弧度与角度）
+
+![img](http://c.biancheng.net/uploads/allimg/180806/1-1PP6164113221.jpg)
+
+根据定义，圆一周的弧度数为 2πr/r = 2π，360° = 2πrad，平角（即 180° 角）为 πrad，直角为 π/2rad。
+
+在具体计算中，角度以弧度给出时，通常不写弧度单位，直接写值。最典型的例子是三角函数，例如sin(8π)、tan(3π/2)。
+
+## 二次贝塞尔曲线及三次贝塞尔曲线
+
+```js
+quadraticCurveTo(cp1x, cp1y, x, y)
+```
+
+绘制二次贝塞尔曲线，`cp1x,cp1y`为一个控制点，`x,y为`结束点。
+
+```js
+bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+```
+
+绘制三次贝塞尔曲线，`cp1x,cp1y`为控制点一，`cp2x,cp2y`为控制点二，`x,y`为结束点。
+
+**canvas内容太多了，还是先不继续了，先过完一遍js，回头再细研究**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
