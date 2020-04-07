@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动画</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  show() hide() toggle()
+  <button class="btn-show-hide">show-hide</button>
+  <div class="box show-hide"></div>
+
+  slideUp() slideDown() slideToggle()
+  <button class="btn-slide-up-down">slide-up-down</button>
+  <div class="box slide-up-down"></div>
+
+  fadeIn() fadeOut()  fadeToggle()
+  <button class="btn-fade-in-out">fade-in-out</button>
+  <div class="box fade-in-out"></div>
+
+  animate
+  <button class="btn-animate">animate</button>
+  <div class="box animate"></div>
+
+  串行动画
+  <button class="btn-ch-animate">串行动画</button>
+  <div class="box ch-animate"></div>
+
+
+
+
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script
+  src="http://code.jquery.com/color/jquery.color-2.1.2.js"
+  integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8="
+  crossorigin="anonymous"></script>
+  <script>
+    $('.btn-show-hide').click(()=> $('.show-hide').toggle('2000'));
+    $('.btn-slide-up-down').click(()=> $('.slide-up-down').slideToggle('2000'));
+    $('.btn-fade-in-out').click(()=> $('.fade-in-out').fadeToggle('2000'));
+    $('.btn-animate').click(()=> {
+      $('.animate').animate({
+        opacity:0.5,
+        backgroundColor:'red',
+        borderRadius: '50%'
+      },2000,()=>{
+        console.log('complete~')
+      })
+    });
+    $('.btn-ch-animate').click(()=> {
+      $('.ch-animate').animate({
+        opacity:0.5,
+        backgroundColor:'red',
+        borderRadius: '50%'
+      },2000)
+      .delay(1000)
+      .animate({
+        opacity:0.3,
+        backgroundColor:'green',
+        borderRadius: '20%'
+      },2000)
+    })
+  </script>
+</body>
+</html>

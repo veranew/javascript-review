@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jsonp-ajax</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+<div class="box">12344</div>
+<button class="btn">jq插件</button>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+  <script>
+    function refreshPrice(data){ // 请求链接里的callback
+      console.log(data)
+    }
+    $.ajax({
+      url: 'http://api.money.126.net/data/feed/0000001,1399001?callback=refreshPrice',
+      method: 'GET',
+      dataType: 'jsonp',
+    })
+  </script>
+  <script>
+    $.fn.highlight = function(options) {
+      var opts = $.extend({}, $.fn.highlight.defaults, options);
+      this.css('backgroundColor', opts.backgroundColor).css('color', opts.color);
+      return this;// 符合jq链式编程
+    }
+    $.fn.highlight.defaults = {
+      color: 'red',
+      backgroundColor: 'yellow'
+    }
+    $('.btn').click(()=>{
+      $.fn.highlight.defaults = {
+        backgroundColor: '#000',
+        color: '#fff'
+      }
+      $('.box').highlight();
+    })
+  </script>
+</body>
+</html>
