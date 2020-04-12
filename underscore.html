@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,user-scalable=no"
+    />
+    <title>underscore</title>
+  </head>
+  <body>
+    <script src="./underscore.js"></script>
+    <script>
+      "use strict";
+      /*
+       * map
+       * */
+      var obj = {
+        name: "zhangsan",
+        age: "34",
+        gender: "1",
+      };
+      var changedObjArr = _.map(obj, function (value, key) {
+        return value + " changed";
+      });
+      console.log(changedObjArr); // ["zhangsan changed", "34 changed", "1 changed"]
+      var changedObjObject = _.mapObject(
+        obj,
+        (value, key) => value + " changed too"
+      );
+      console.log(changedObjObject); // {name: "zhangsan changed too", age: "34 changed too", gender: "1 changed too"}
+
+      /*
+       * every/some
+       * */
+      var every = _.every([1, 3, -4, -4, 5, 6, 7], (x) => x > 0); // false
+      var some = _.some([1, 3, -4, -4, 5, 6, 7], (x) => x > 0); // true
+      console.log(every, some);
+
+      /* 
+      * groupBy
+      * */
+     var scoresArr = [59, 70, 80, 90, 49, 89, 69, 78];
+     var scoreGroup = _.groupBy(scoresArr, x => {
+      if (x < 60 ) {
+        return 'C';
+      } else if (x < 80) {
+        return 'B';
+      } else {
+        return 'A';
+      }
+    }) 
+    console.log(scoreGroup) // {C: [59, 49] B: [70, 69, 78] A: [80, 90, 89]}
+
+    var scoresObj = {
+      'xiaoming': 99,
+      'xiaoli': 88,
+      'xiaoxiao': 77,
+      'lihua': 59
+    }
+    var scoreGroupObj = _.groupBy(scoresObj, x => {
+      if (x < 60 ) {
+        return 'C';
+      } else if (x < 80) {
+        return 'B';
+      } else {
+        return 'A';
+      }
+    })
+    console.log(scoreGroupObj) // A: [99, 88] B: [77] C: [59]
+
+    /*
+    * shuffle/sample
+    * */
+   var shuffle = _.shuffle([0,1,2,3,4,5]);
+   console.log('shuffle',shuffle);
+  var sample = _.sample([0,1,2,3,4,5], 3)
+  console.log('sample', sample)
+    </script>
+  </body>
+</html>
